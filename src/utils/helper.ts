@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
-export const DATE_FORMAT = 'DD MM YYYY';
+export const DATE_FORMAT = 'DD/MM/YYYY';
 
 export const convertStringToShortDate = (date: string) =>
   dayjs(date).format(DATE_FORMAT);
@@ -17,7 +17,7 @@ export const toastOptions = {
 };
 
 export const showNotify = (
-  mess,
+  mess: any,
   variant = 'success',
   options = toastOptions
 ) => {

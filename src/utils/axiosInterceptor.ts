@@ -2,7 +2,7 @@ import axios from 'axios';
 import { DB_HOST } from 'config';
 
 export const axiosInstance = axios.create({
-  baseURL: `${DB_HOST}/api`,
+  baseURL: `${DB_HOST}`,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -20,3 +20,21 @@ export type TProject = {
   createdAt: string;
   slug: string;
 };
+
+export type TProjectDetail = {
+  id: string;
+  starCount: number;
+  title: string;
+  thumbnail: string;
+  shortDescription: string;
+  createdAt: string;
+  slug: string;
+  user: TUser;
+};
+
+export type TUser = {
+  fullName: string;
+  id: string;
+  profilePhoto: string;
+  username: string;
+};

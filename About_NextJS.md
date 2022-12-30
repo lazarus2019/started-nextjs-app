@@ -46,6 +46,12 @@ Docs: https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/view
 
 ## SSG, SSR, CSR and ISR
 
+Static: automatically rendered as static HTML (uses no inital props)
+SSG: automatically generated as static HTML + JSON (uses getStaticProps)
+ISR: incremental static regeneration (uses revalidate getStaticProps)
+SSG + CSR: pre-rendered HTML + data fetching on client side using useEffect
+SSR: server-side renders at runtime (uses getInitialProps or getServerSideProps)
+
 ### Pre-rendering (Không bị reload khi trở lại trang)
 
 \- Render sẵn file HTML bên phía server ==> JS Loads ==> Hydration
@@ -53,7 +59,7 @@ Docs: https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/view
 _No Pre-rendering_
 \- Tải file HTML rỗng ==> JS Loads ==> Append vào root
 
-### SSG - Static Site Generation (Mặc định bởi nextjs) 
+### SSG - Static Site Generation (Mặc định bởi nextjs)
 
 \- Build 1 lần, mỗi lần request thì gửi luôn file static HTML
 
@@ -62,14 +68,40 @@ _No Pre-rendering_
 ### SSR - Server Side Rendering
 
 \- Tạo file HTML dựa trên mỗi request (đợi server xử lý)
+
 \- Khi nào thì sử dụng SSR: https://github.com/vercel/next.js/discussions/10437#discussioncomment-90459
 
 ### CSR - Client Side Rendering
 
 \- Static Generation without Data + Fetch Data on the Client-side
+
 \- Tạo file markup sẵn ==> show markup ==> fetch data từ client ==> show data
 
 ### ISR - Incremental Static Regeneration (revalidate)
 
 \- Next.js hỗ trợ việc tạo hoặc cập nhật lại static file sau khi built
+
 \- ISR cho phép sử dụng lại những phần khởi tạo đó của từng trang mà không cần phải rebuild toàn bộ trang web
+
+## ASO - Automatic Static Optimization
+
+\- Next.js tự xác định trang có static có pre-render hay không dựa trên việc sử dụng getServerSideProps hoặc getInitialProps.
+
+\- Có getServerSideProps ==> KO ASO
+
+> Chuyển trang sang dạng SSR (tạo HTML dựa trên request)
+
+\- KO getServerSideProps ==> Có ASO
+
+> Pre-rendering page dựa trên file static HTML
+
+|              | ASO                                              | Not ASO (getServerSideProps) |
+| ------------ | ------------------------------------------------ | ---------------------------- |
+| router.query | empty when pre-rendering, update after hydration | always available             |
+| next build   | output an HTML                                   | output an JS file            |
+
+## getServerSideProps
+
+## getStaticPaths
+
+## getStaticProps

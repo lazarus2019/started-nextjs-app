@@ -5,11 +5,11 @@ const combinedReducer = combineReducers({
   project: projectReducer,
 });
 
-export const makeStore = () => {
-  configureStore({
-    reducers: combinedReducer,
-  });
-};
+// export const makeStore = () => {
+//   configureStore({
+//     reducers: combinedReducer,
+//   });
+// };
 
 // const combinedReducer = combineReducers({
 //   translate: translateReducer,

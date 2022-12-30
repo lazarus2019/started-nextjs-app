@@ -1,19 +1,39 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import axios from 'axios';
+import Image from 'next/image';
+import { FC } from 'react';
+import { convertStringToShortDate } from 'utils/helper';
+import { TProject } from 'utils/interface';
 
-const Project = () => {
-  const router = useRouter();
-
-  const handleOnClick = () => {
-    router.push('/projects/username/1');
-  };
+const Project: FC<{ projects: TProject[] }> = ({ projects }) => {
   return (
     <div>
-      <div>Project</div>
-      <Link href="/login">Go to Login</Link>
-      <button onClick={handleOnClick}>Go To Username</button>
+      {projects.map((project) => (
+        <div key={project.id}>
+          <h2>{project.title}</h2>
+          <p>{project.shortDescription}</p>
+          <Image
+            src={project.thumbnail}
+            width={250}
+            height={150}
+            alt={project.title}
+          />
+          <p>Date: {convertStringToShortDate(project.createdAt)}</p>
+        </div>
+      ))}
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const data = await axios
+    .get('https://portfolio-social-server.vercel.app/api/project/laptrinhvien')
+    .then((res): TProject[] => res.data.results);
+
+  return {
+    props: {
+      projects: data,
+    },
+  };
+}
 
 export default Project;
